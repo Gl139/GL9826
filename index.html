@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>界山 · 个人主页</title>
+<style>
+  /* ============ 基础设置 ============ */
+  :root{
+    --bg:#181818;          /* 深黑底 */
+    --ink:#e8e6e1;         /* 米白正文 */
+    --ink-soft:#9a9a96;    /* 次级灰 */
+    --line:#2e2e2e;        /* 分隔线 */
+    --accent:#c9a961;      /* 暖金点缀 */
+    --card:#222222;        /* 卡片底 */
+    --serif:"Noto Serif SC","Songti SC","SimSun",serif;
+    --sans:"PingFang SC","Microsoft YaHei",sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.8;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--accent);color:#181818}
+
+  /* ============ 通用 ============ */
+  .wrap{max-width:880px;margin:0 auto;padding:0 24px}
+  .serif{font-family:var(--serif)}
+
+  /* ============ 顶部导航 ============ */
+  nav{
+    position:sticky;top:0;z-index:10;
+    background:rgba(24,24,24,.85);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+  nav .brand{font-family:var(--serif);font-size:20px;letter-spacing:4px}
+  nav .links a{
+    text-decoration:none;color:var(--ink-soft);
+    font-size:14px;margin-left:28px;letter-spacing:1px;
+    transition:color .2s;
+  }
+  nav .links a:hover{color:var(--accent)}
+
+  /* ============ Hero 大标题区 ============ */
+  header{padding:120px 0 80px;text-align:center}
+  header .eyebrow{
+    font-size:13px;letter-spacing:8px;color:var(--accent);
+    margin-bottom:24px;text-transform:uppercase;
+  }
+  header h1{
+    font-family:var(--serif);
+    font-size:clamp(48px,9vw,88px);
+    font-weight:400;letter-spacing:6px;
+    line-height:1.2;margin-bottom:28px;
+  }
+  header .subtitle{
+    font-size:18px;color:var(--ink-soft);
+    max-width:560px;margin:0 auto;letter-spacing:1px;
+  }
+  header .divider{
+    width:1px;height:64px;background:var(--accent);
+    margin:48px auto 0;
+  }
+
+  /* ============ 区块通用 ============ */
+  section{padding:80px 0}
+  .sec-head{margin-bottom:48px}
+  .sec-head .num{
+    font-family:var(--serif);font-size:14px;
+    color:var(--accent);letter-spacing:3px;
+  }
+  .sec-head h2{
+    font-family:var(--serif);font-weight:400;
+    font-size:clamp(32px,5vw,44px);letter-spacing:3px;
+    margin-top:8px;
+  }
+  .sec-head .en{
+    font-size:12px;color:var(--ink-soft);
+    letter-spacing:2px;margin-top:6px;
+  }
+
+  /* ============ 关于我 ============ */
+  .about p{font-size:17px;color:var(--ink-soft);max-width:680px}
+  .about p+p{margin-top:20px}
+
+  /* ============ 技能模块 ============ */
+  .skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px}
+  .skill-card{
+    background:var(--card);border:1px solid var(--line);
+    padding:32px 28px;border-radius:4px;
+    transition:transform .25s,box-shadow .25s;
+  }
+  .skill-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.4)}
+  .skill-card h3{
+    font-family:var(--serif);font-size:20px;
+    font-weight:400;letter-spacing:2px;margin-bottom:6px;
+  }
+  .skill-card .tag{
+    font-size:12px;color:var(--accent);letter-spacing:2px;margin-bottom:18px;
+  }
+  .skill-card p{font-size:14px;color:var(--ink-soft);line-height:1.7}
+  .skill-list{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px}
+  .skill-list span{
+    font-size:12px;color:var(--ink-soft);
+    border:1px solid var(--line);padding:4px 10px;border-radius:20px;
+  }
+
+  /* ============ 主要成就 ============ */
+  .achieve{list-style:none}
+  .achieve li{
+    display:grid;grid-template-columns:120px 1fr;gap:24px;
+    padding:28px 0;border-bottom:1px solid var(--line);
+  }
+  .achieve li:last-child{border-bottom:none}
+  .achieve .year{font-family:var(--serif);font-size:18px;color:var(--accent);letter-spacing:2px}
+  .achieve h3{font-family:var(--serif);font-weight:400;font-size:20px;letter-spacing:1px;margin-bottom:6px}
+  .achieve p{font-size:15px;color:var(--ink-soft)}
+
+  /* ============ 履历时间线 ============ */
+  .timeline{position:relative;padding-left:28px}
+  .timeline::before{
+    content:"";position:absolute;left:6px;top:6px;bottom:6px;
+    width:1px;background:var(--line);
+  }
+  .tl-item{position:relative;padding-bottom:40px}
+  .tl-item::before{
+    content:"";position:absolute;left:-27px;top:6px;
+    width:11px;height:11px;border-radius:50%;
+    background:var(--bg);border:2px solid var(--accent);
+  }
+  .tl-item .when{font-size:13px;color:var(--accent);letter-spacing:2px}
+  .tl-item h3{font-family:var(--serif);font-weight:400;font-size:20px;margin:6px 0;letter-spacing:1px}
+  .tl-item .org{font-size:14px;color:var(--ink-soft);margin-bottom:8px}
+  .tl-item p{font-size:15px;color:var(--ink-soft)}
+
+  /* ============ 联系方式 ============ */
+  footer{padding:80px 0 48px;text-align:center;border-top:1px solid var(--line)}
+  footer h2{font-family:var(--serif);font-weight:400;font-size:32px;letter-spacing:4px;margin-bottom:24px}
+  footer .contact{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;margin-top:24px}
+  footer .contact a{
+    text-decoration:none;color:var(--ink-soft);
+    font-size:14px;letter-spacing:1px;border-bottom:1px solid transparent;
+    padding-bottom:2px;transition:all .2s;
+  }
+  footer .contact a:hover{color:var(--accent);border-color:var(--accent)}
+  footer .copy{font-size:12px;color:var(--ink-soft);margin-top:56px;letter-spacing:1px}
+
+  /* ============ 响应式 ============ */
+  @media(max-width:640px){
+    nav .links a{margin-left:16px;font-size:13px}
+    header{padding:80px 0 56px}
+    section{padding:56px 0}
+    .achieve li{grid-template-columns:1fr;gap:8px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ 顶部导航 ============ -->
+<nav>
+  <div class="wrap">
+    <div class="brand">界山</div>
+    <div class="links">
+      <a href="#about">关于</a>
+      <a href="#skills">技能</a>
+      <a href="#achievements">成就</a>
+      <a href="#journey">履历</a>
+      <a href="#contact">联系</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ Hero 大标题区 ============ -->
+<header>
+  <div class="wrap">
+    <div class="eyebrow">Personal · Portfolio</div>
+    <h1>界山</h1>
+    <p class="subtitle">
+      <!-- 这里改成你的一句话简介 -->
+      在工具与人文之间寻找平衡，做一件能留下来的事。
+    </p>
+    <div class="divider"></div>
+  </div>
+</header>
+
+<!-- ============ 关于我 ============ -->
+<section id="about">
+  <div class="wrap about">
+    <div class="sec-head">
+      <div class="num">壹</div>
+      <h2>关于我</h2>
+      <div class="en">About</div>
+    </div>
+    <!-- 替换下面这段话为你的真实介绍 -->
+    <p>你好，我是界山。一个相信"慢工出细活"的人，喜欢把复杂的事情做简单，把简单的事情做到极致。</p>
+    <p>工作之外，我喜欢阅读、写作与思考，关注技术如何让生活更从容，也在意每一份产出背后的温度。</p>
+  </div>
+</section>
+
+<!-- ============ 技能模块 ============ -->
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="num">贰</div>
+      <h2>技能</h2>
+      <div class="en">Skills</div>
+    </div>
+
+    <div class="skills">
+      <!-- 技能卡片：每张卡是一个模块，复制 .skill-card 即可新增 -->
+      <div class="skill-card">
+        <h3>文档写作</h3>
+        <div class="tag">WRITING</div>
+        <p>擅长把零散信息整理成结构清晰的文档，注重逻辑与可读性。</p>
+        <div class="skill-list">
+          <span>Markdown</span><span>Word</span><span>长文润色</span><span>信息提炼</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <h3>数据处理</h3>
+        <div class="tag">DATA</div>
+        <p>能独立完成数据清洗、分析与可视化，让数字讲出故事。</p>
+        <div class="skill-list">
+          <span>Excel</span><span>公式</span><span>图表</span><span>报表</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <h3>办公效率</h3>
+        <div class="tag">TOOLS</div>
+        <p>熟练使用各类办公工具与自动化手段，把重复劳动交给流程。</p>
+        <div class="skill-list">
+          <span>AI 辅助</span><span>模板化</span><span>流程优化</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <h3>思考与学习</h3>
+        <div class="tag">MINDSET</div>
+        <p>保持好奇心，擅长把新知识快速迁移到实际场景中。</p>
+        <div class="skill-list">
+          <span>拆解问题</span><span>复盘</span><span>迁移应用</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 主要成就 ============ -->
+<section id="achievements">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="num">叁</div>
+      <h2>主要成就</h2>
+      <div class="en">Highlights</div>
+    </div>
+
+    <ul class="achieve">
+      <!-- 成就条目：复制 li 即可新增，year 改成年份，内容改成你的成果 -->
+      <li>
+        <div class="year">2026</div>
+        <div>
+          <h3>示例：完成某项目闭环</h3>
+          <p>从需求梳理到交付落地，独立承担关键节点，成果被采用。</p>
+        </div>
+      </li>
+      <li>
+        <div class="year">2025</div>
+        <div>
+          <h3>示例：建立个人知识体系</h3>
+          <p>系统沉淀工作方法论，形成可复用的模板与流程。</p>
+        </div>
+      </li>
+      <li>
+        <div class="year">2024</div>
+        <div>
+          <h3>示例：跨领域协作落地</h3>
+          <p>与多个团队合作推进项目，打通信息壁垒，提升整体效率。</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 履历时间线 ============ -->
+<section id="journey">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="num">肆</div>
+      <h2>履历</h2>
+      <div class="en">Journey</div>
+    </div>
+
+    <div class="timeline">
+      <!-- 履历节点：复制 tl-item 即可新增，倒序填写 -->
+      <div class="tl-item">
+        <div class="when">2024 — 至今</div>
+        <h3>某岗位 · 职责方向</h3>
+        <div class="org">机构 / 公司名称</div>
+        <p>负责核心业务推进，主导若干关键项目落地。</p>
+      </div>
+      <div class="tl-item">
+        <div class="when">2022 — 2024</div>
+        <h3>某岗位 · 职责方向</h3>
+        <div class="org">机构 / 公司名称</div>
+        <p>深耕专业领域，积累方法论并输出可复用成果。</p>
+      </div>
+      <div class="tl-item">
+        <div class="when">2020 — 2022</div>
+        <h3>某岗位 · 职责方向</h3>
+        <div class="org">机构 / 公司名称</div>
+        <p>完成从入门到独立承担的成长，奠定专业基础。</p>
+      </div>
+      <div class="tl-item">
+        <div class="when">2018 — 2020</div>
+        <h3>学习 / 入门阶段</h3>
+        <div class="org">院校 / 自学</div>
+        <p>系统学习相关领域知识，开启职业起点。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 联系方式 ============ -->
+<footer id="contact">
+  <div class="wrap">
+    <h2>保持联系</h2>
+    <p style="color:var(--ink-soft);font-size:15px">
+      如果你对我的经历感兴趣，或有任何合作想法，欢迎留言。
+    </p>
+    <div class="contact">
+      <!-- 换成你的真实联系方式 -->
+      <a href="mailto:you@example.com">Email</a>
+      <a href="#">GitHub</a>
+      <a href="#">Blog</a>
+    </div>
+    <div class="copy">© 2026 界山 · 用心做，慢慢来</div>
+  </div>
+</footer>
+
+</body>
+</html>
